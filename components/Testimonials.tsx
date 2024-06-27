@@ -57,7 +57,7 @@ const Testimonials: React.FC = () => {
               transition={{ duration: 0.5 }}
               className="bg-white rounded-lg p-8 shadow-lg max-w-2xl mx-auto"
             >
-              <p className="text-xl mb-6 text-gray-600 italic">"{testimonials[currentIndex].text}"</p>
+              <p className="text-xl mb-6 text-gray-600 italic">&quot;{testimonials[currentIndex].text}&quot;</p>
               <div className="flex justify-between items-center">
                 <p className="font-semibold text-[#33334D]">{testimonials[currentIndex].name}</p>
                 <div className="flex">
