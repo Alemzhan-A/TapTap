@@ -7,8 +7,8 @@ import CTASection from '../components/CTASection';
 import Footer from '../components/Footer';
 import AIFeatures from '@/components/AIFeatures';
 import StatsSection from '@/components/StatsSection';
-import Testimonials from '@/components/Testimonials';
 import FAQSection from '@/components/FAQSection';
+import AnimatedPhrase from '@/components/AnimatedPhrase';
 
 const Home: React.FC = () => {
   return (
@@ -22,10 +22,10 @@ const Home: React.FC = () => {
       <Header />
       <main className="flex-grow">
         <HeroSection />
+        <AnimatedPhrase />
         <HowItWorks />
         <AIFeatures />
         <StatsSection />
-        <Testimonials />
         <CTASection />
         <FAQSection />
       </main>
