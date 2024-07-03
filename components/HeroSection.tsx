@@ -12,12 +12,12 @@ const HeroSection: React.FC = () => {
 
   return (
     <section
-      className="relative bg-[#1E0033] py-16 overflow-hidden min-h-screen flex flex-col justify-between z-10"
+      className="relative bg-[#1E0033] overflow-hidden min-h-screen flex flex-col justify-between z-10"
       ref={ref}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-[#1E0033] to-[#300050] z-0"></div>
       <div className="container mx-auto px-4 flex flex-col justify-center items-center h-full relative z-10">
-        <div className="absolute top-1/4 left-20 w-full md:w-3/4 p-4">
+        <div className="absolute top-1 left-20 w-full md:w-3/4 p-4">
           <motion.h1
             className="text-6xl md:text-7xl lg:text-7xl font-bold mt-14 leading-tight text-[#EDF7FF] "
             initial={{ opacity: 0, y: -50 }}
