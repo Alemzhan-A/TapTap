@@ -16,10 +16,10 @@ const HeroSection: React.FC = () => {
       ref={ref}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-[#1E0033] to-[#300050] z-0"></div>
-      <div className="container mx-auto px-4 flex flex-col justify-center items-center h-full relative z-10">
-        <div className="absolute top-1 left-20 w-full md:w-3/4 p-4">
+      <div className="container mx-auto px-4 flex flex-col justify-center items-start h-full relative z-10">
+        <div className="w-full md:w-3/4 p-4 md:pl-20">
           <motion.h1
-            className="text-6xl md:text-7xl lg:text-7xl font-bold mt-14 leading-tight text-[#EDF7FF] "
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mt-14 leading-tight text-[#EDF7FF]"
             initial={{ opacity: 0, y: -50 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
             transition={{ duration: 0.8 }}
@@ -42,35 +42,39 @@ const HeroSection: React.FC = () => {
             />
           </motion.h1>
           <motion.p
-            className="text-2xl md:text-4xl mb-10 text-[#9c49bd] "
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-10 text-[#9c49bd]"
             initial={{ opacity: 0, y: 50 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             Купи что-угодно за свою цену
           </motion.p>
-          <motion.div className="max-w-96">
-          <motion.p
-            className="text-xl md:text-2xl mb-8 mt-28 text-white"
-            initial={{ opacity: 0, y: 50 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Совершенно новый поиск с ИИ, который найдет подходящий вам товар и договорится о покупке с продавцом за вас
-          </motion.p>
-        </motion.div>
+          <div className="relative w-full flex justify-center mt-8 sm:hidden">
+            <img src="/Cart(1).svg" className="w-80 h-80 object-contain" alt="Shopping cart" />
+          </div>
+          <motion.div className="max-w-96 relative">
+            <motion.p
+              className="text-lg sm:text-xl md:text-2xl mb-8 mt-8 sm:mt-32 text-white"
+              initial={{ opacity: 0, y: 50 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Совершенно новый поиск с ИИ, который найдет подходящий вам товар и договорится о покупке с продавцом за вас
+            </motion.p>
+          </motion.div>
           <Link href="/chat" passHref>
             <motion.button
-              className="bg-[#9c49bd] text-white px-12 py-4 rounded-full text-xl font-semibold hover:bg-[#8038a0] transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="bg-[#9c49bd] text-white px-8 sm:px-12 py-3 sm:py-4 rounded-full text-lg sm:text-xl font-semibold hover:bg-[#8038a0] transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              style={{ margin: 'auto', display: 'block' }}
             >
               Начать поиск
             </motion.button>
           </Link>
         </div>
-        <div className="absolute top-1/4 -right-20 w-full md:w-3/5 flex justify-center">
-          <img src="/Cart(1).svg" className="w-5/6 h-4/5 object-cover" />
+        <div className="hidden sm:block absolute -bottom-1/4 -right-1 w-1/2 md:w-1/2">
+          <img src="/Cart(1).svg" className="w-full h-auto object-contain" alt="Shopping cart" />
         </div>
       </div>
     </section>
