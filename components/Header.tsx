@@ -19,14 +19,14 @@ const Header: React.FC = () => {
     <header className="bg-gradient-to-r from-[#1E0033] to-[#300050] text-white w-full z-50 sticky">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" legacyBehavior>
-          <a className="text-2xl font-bold text-[#6B6BFA] ml-20">TapTap</a>
+          <a className="text-2xl font-bold text-[#6B6BFA] md:ml-20 ml-4">TapTap</a>
         </Link>
         <nav className="hidden md:block mr-24">
           <ul className="flex space-x-6">
             {menuItems.map((item, index) => (
               <motion.li key={index} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
                 <Link href={item.href} legacyBehavior>
-                  <a className="hover:text-[#6B6BFA] transition duration-300">{item.label}</a>
+                  <a className="hover:text-[#6B6BFA] transition duration-300 md:ml-6 ml-4">{item.label}</a>
                 </Link>
               </motion.li>
             ))}
@@ -55,7 +55,7 @@ const Header: React.FC = () => {
                     transition={{ delay: index * 0.1 }}
                   >
                     <Link href={item.href} legacyBehavior>
-                      <a className="block hover:text-[#6B6BFA] transition duration-300" onClick={toggleMenu}>
+                      <a className="block hover:text-[#6B6BFA] transition duration-300 md:ml-6 ml-4" onClick={toggleMenu}>
                         {item.label}
                       </a>
                     </Link>

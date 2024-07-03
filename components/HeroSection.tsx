@@ -27,13 +27,15 @@ const HeroSection: React.FC = () => {
             TapTap - удобный и умный
             <TypeAnimation
               sequence={[
-                ' поиск вещей',
+                ' поиск кроссовок',
                 2000,
                 ' поиск техники',
                 2000,
                 ' поиск косметики',
                 2000,
                 ' поиск мебели',
+                2000,
+                ' поиск одежды',
                 2000
               ]}
               wrapper="span"
@@ -64,10 +66,9 @@ const HeroSection: React.FC = () => {
           </motion.div>
           <Link href="/chat" passHref>
             <motion.button
-              className="bg-[#9c49bd] text-white px-8 sm:px-12 py-3 sm:py-4 rounded-full text-lg sm:text-xl font-semibold hover:bg-[#8038a0] transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="bg-[#9c49bd] text-white px-8 sm:px-12 py-3 sm:py-4 rounded-full text-lg sm:text-xl font-semibold hover:bg-[#8038a0] transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 md:ml-0 ml-auto"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              style={{ margin: 'auto', display: 'block' }}
             >
               Начать поиск
             </motion.button>
