@@ -70,7 +70,7 @@ const HeroSection: React.FC = () => {
           </Link>
         </div>
         <div className="absolute top-1/4 -right-20 w-full md:w-3/5 flex justify-center">
-          <img src="/cart(1).svg" className="w-5/6 h-4/5 object-cover" />
+          <img src="/Cart(1).svg" className="w-5/6 h-4/5 object-cover" />
         </div>
       </div>
     </section>
