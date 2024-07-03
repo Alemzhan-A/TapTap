@@ -64,15 +64,17 @@ const HeroSection: React.FC = () => {
               Совершенно новый поиск с ИИ, который найдет подходящий вам товар и договорится о покупке с продавцом за вас
             </motion.p>
           </motion.div>
-          <Link href="/chat" passHref>
-            <motion.button
-              className="bg-[#9c49bd] text-white px-8 sm:px-12 py-3 sm:py-4 rounded-full text-lg sm:text-xl font-semibold hover:bg-[#8038a0] transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 md:ml-0 ml-auto"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Начать поиск
-            </motion.button>
-          </Link>
+          <div className="text-center sm:text-left">
+            <Link href="/chat" passHref>
+              <motion.button
+                className="bg-[#9c49bd] text-white px-8 sm:px- py-3 sm:py-4 rounded-full text-lg sm:text-xl font-semibold hover:bg-[#8038a0] transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 mx-auto md:ml-0"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Начать поиск
+              </motion.button>
+            </Link>
+          </div>
         </div>
         <div className="hidden sm:block absolute -bottom-1/4 -right-1 w-1/2 md:w-1/2">
           <img src="/Cart(1).svg" className="w-full h-auto object-contain" alt="Shopping cart" />
