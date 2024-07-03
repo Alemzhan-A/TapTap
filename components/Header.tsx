@@ -43,7 +43,7 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-[#33334D] overflow-hidden"
+            className="md:hidden bg-gradient-to-r from-[#1E0033] to-[#300050] overflow-hidden"
           >
             <nav className="container mx-auto px-4 py-4">
               <ul className="space-y-4">
