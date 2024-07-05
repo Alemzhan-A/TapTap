@@ -11,6 +11,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": true,
     "incremental": true,
     "plugins": [
       {

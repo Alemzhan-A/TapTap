@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import HeaderChat from './HeaderChat'
-import { IoBookmark, IoCheckmarkCircle, IoCloseCircle, IoInformationCircle } from 'react-icons/io5'
+import { IoBookmark, IoCheckmarkCircle, IoCloseCircle, IoInformationCircle, IoSearch } from 'react-icons/io5'
 
 type ChatAreaProps = {
   onOpenSidebar: () => void;
@@ -13,6 +13,12 @@ type Recommendation = {
   cons: string[];
   priceRange: string;
   explanation: string;
+  olxProducts: Array<{
+    title: string;
+    price: string;
+    link: string;
+    imageUrl: string;
+  }>;
 }
 
 type SearchResult = {
@@ -28,6 +34,11 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [currentProductLink, setCurrentProductLink] = useState('');
+  const [loginStatus, setLoginStatus] = useState<string>('');
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,31 +63,72 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
     }
   };
 
+  const handleOpenModal = (productLink: string) => {
+    setCurrentProductLink(productLink);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setEmail('');
+    setPassword('');
+    setLoginStatus('');
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginStatus('Выполняется вход...');
+    try {
+      const response = await fetch('/api/olx-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, productLink: currentProductLink }),
+      });
+      if (!response.ok) {
+        throw new Error('Ошибка входа');
+      }
+      const result = await response.json();
+      setLoginStatus(result.message);
+    } catch (error) {
+      console.error('Ошибка при входе:', error);
+      setLoginStatus('Ошибка при входе. Пожалуйста, попробуйте снова.');
+    }
+    setTimeout(() => {
+      handleCloseModal();
+    }, 3000);
+  };
+
   return (
-    <main className="flex-grow bg-[#EDF7FF] flex flex-col w-full">
+    <main className="flex-grow bg-gradient-to-b from-[#EDF7FF] to-[#E2EEFF] flex flex-col w-full">
       <HeaderChat onOpenSidebar={onOpenSidebar} />
-      <div className="flex-grow flex items-center justify-center px-4 py-8">
-        <div className="w-full max-w-3xl">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center text-[#6B6BFA]">Что хотите купить?</h1>
-          <form onSubmit={handleSearch} className="mb-6 md:mb-8">
-            <div className="flex flex-col md:flex-row items-center border-2 border-[#6B6BFA] rounded-lg overflow-hidden">
+      <div className="flex-grow flex flex-col items-center justify-start px-4 py-8">
+        <div className="w-full max-w-4xl">
+          <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#4A4AFA]">Что хотите купить?</h1>
+          <form onSubmit={handleSearch} className="mb-8">
+            <div className="flex items-center border-2 border-[#4A4AFA] rounded-full overflow-hidden bg-white shadow-lg">
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="дешевый, но хороший ноутбук для инкубатора"
-                className="w-full p-3 md:p-4 focus:outline-none bg-white text-[#6B6BFA]"
+                placeholder="Например: дешевый, но хороший ноутбук для работы"
+                className="w-full p-4 focus:outline-none text-[#4A4AFA] text-lg"
               />
-              <button type="submit" className="w-full md:w-auto bg-[#6B6BFA] text-white px-4 py-3 md:px-6 md:py-4 hover:bg-opacity-90 mt-2 md:mt-0" disabled={isLoading}>
-                {isLoading ? 'Поиск...' : 'Найти'}
+              <button
+                type="submit"
+                className="bg-[#4A4AFA] text-white px-6 py-4 hover:bg-opacity-90 transition-colors duration-200 flex items-center justify-center"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Поиск...' : <IoSearch size={24} />}
               </button>
             </div>
           </form>
-          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
-            {['Хорошие часы для тоя, чтобы все были в шоке', 'Наушники, которые заглушат храп соседа', 'Топовые кроссовки на лето 2024', 'Очки как у Кайрата Нуртаса'].map((suggestion) => (
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            {['Хорошие часы для тоя', 'Наушники с шумоподавлением', 'Топовые кроссовки на лето 2024'].map((suggestion) => (
               <span
                 key={suggestion}
-                className="bg-white border border-[#6B6BFA] px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm cursor-pointer hover:bg-[#6B6BFA] hover:text-white text-[#6B6BFA] mb-2"
+                className="bg-white border-2 border-[#4A4AFA] px-4 py-2 rounded-full text-sm cursor-pointer hover:bg-[#4A4AFA] hover:text-white text-[#4A4AFA] transition-colors duration-200"
                 onClick={() => setQuery(suggestion)}
               >
                 {suggestion}
@@ -84,54 +136,91 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
             ))}
           </div>
           {results && (
-            <div className="mt-8">
-              <h2 className="text-xl font-bold mb-4 text-[#6B6BFA] flex items-center">
+            <div className="bg-white rounded-xl shadow-xl p-6">
+              <h2 className="text-2xl font-bold mb-6 text-[#4A4AFA] flex items-center">
                 <IoBookmark className="mr-2" />
-                Рекомендации:
+                Результаты поиска
               </h2>
               {results.recommendations.map((rec, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg mb-6 shadow-md">
-                  <h3 className="font-bold text-lg mb-4 text-[#6B6BFA]">{rec.productName}</h3>
+                <div key={index} className="mb-8 border-b border-gray-200 pb-8 last:border-b-0 last:pb-0">
+                  <h3 className="font-bold text-xl mb-4 text-[#4A4AFA]">{rec.productName}</h3>
                   
-                  <Feature 
-                    title="Особенности" 
-                    items={rec.features}
-                  />
-                  
-                  <Feature 
-                    title="Преимущества" 
-                    items={rec.pros}
-                    icon={<IoCheckmarkCircle className="text-green-500" />}
-                  />
-                  
-                  <Feature 
-                    title="Недостатки" 
-                    items={rec.cons}
-                    icon={<IoCloseCircle className="text-red-500" />}
-                  />
-                  
-                  <div className="mt-3">
-                    <h4 className="font-semibold text-[#6B6BFA] flex items-center mb-1">
-                      <IoInformationCircle className="mr-2 text-blue-500" />
-                      Ценовой диапазон:
-                    </h4>
-                    <p className="text-gray-700">{rec.priceRange}</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <Feature 
+                      title="Особенности" 
+                      items={rec.features}
+                    />
+                    
+                    <Feature 
+                      title="Преимущества" 
+                      items={rec.pros}
+                      icon={<IoCheckmarkCircle className="text-green-500" />}
+                    />
+                    
+                    <Feature 
+                      title="Недостатки" 
+                      items={rec.cons}
+                      icon={<IoCloseCircle className="text-red-500" />}
+                    />
+                    
+                    <div>
+                      <h4 className="font-semibold text-[#4A4AFA] flex items-center mb-2">
+                        <IoInformationCircle className="mr-2 text-blue-500" />
+                        Ценовой диапазон:
+                      </h4>
+                      <p className="text-gray-700">{rec.priceRange}</p>
+                    </div>
                   </div>
                   
-                  <div className="mt-4 bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-[#6B6BFA] mb-2">Объяснение:</h4>
+                  <div className="bg-gray-50 p-4 rounded-lg mb-6">
+                    <h4 className="font-semibold text-[#4A4AFA] mb-2">Объяснение:</h4>
                     <p className="text-gray-700">{rec.explanation}</p>
                   </div>
+
+                  {rec.olxProducts && rec.olxProducts.length > 0 && (
+                    <div className="mt-6">
+                      <h4 className="font-semibold text-xl text-[#4A4AFA] mb-4">Товары на OLX:</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {rec.olxProducts.map((product, idx) => (
+                          <div 
+                            key={idx}
+                           
+                            className="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200"
+                          >
+                            <div className="relative w-full h-0 pb-[75%]">
+                              <img 
+                                src={product.imageUrl} 
+                                alt={product.title} 
+                                className="absolute inset-0 w-full h-full object-contain bg-gray-100"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).src = '/placeholder-image.jpg';
+                                }}
+                              />
+                            </div>
+                            <div className="p-4">
+                              <h5 className="font-semibold text-[#4A4AFA] mb-2 line-clamp-2 h-12"><a href={product.link}>{product.title}</a></h5>
+                              <p className="text-gray-600 font-bold">{product.price}</p>
+                              <button 
+                                className="bg-[#4A4AFA] text-white px-4 py-2 mt-2 rounded hover:bg-opacity-90 transition-colors duration-200"
+                                onClick={() => handleOpenModal(product.link)}
+                              >
+                                Сторговаться
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
-              <h2 className="text-xl font-bold mt-6 mb-4 text-[#6B6BFA]">Результаты с Reddit:</h2>
-              <ul className="bg-white p-4 rounded-lg">
+              <h2 className="text-xl font-bold mt-8 mb-4 text-[#4A4AFA]">Результаты с Reddit:</h2>
+              <ul className="bg-gray-50 p-4 rounded-lg">
                 {results.redditResults.map((result, index) => (
                   <li key={index} className="mb-2">
-                    <a href={result.url} target="_blank" rel="noopener noreferrer" className="text-[#6B6BFA] hover:underline">
+                    <a href={result.url} target="_blank" rel="noopener noreferrer" className="text-[#4A4AFA] hover:underline">
                       {result.title}
                     </a>
-                    <span className="ml-2 text-sm text-gray-500">Score: {result.score}</span>
                   </li>
                 ))}
               </ul>
@@ -139,10 +228,44 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
           )}
         </div>
       </div>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <h2 className="text-xl font-bold mb-4">Введите данные для OLX</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="email" className="block mb-2">Почта:</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-2 border rounded"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="block mb-2">Пароль:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-2 border rounded"
+              required
+            />
+          </div>
+          <button type="submit" className="bg-[#4A4AFA] text-white px-4 py-2 rounded hover:bg-opacity-90 transition-colors duration-200">
+            Отправить
+          </button>
+        </form>
+        {loginStatus && (
+          <p className="mt-4 text-center text-sm text-gray-600">{loginStatus}</p>
+        )}
+      </Modal>
     </main>
   )
 }
 
+// The Feature and Modal components remain the same
 
 type FeatureProps = {
   title: string
@@ -163,3 +286,24 @@ const Feature = ({ title, items, icon }: FeatureProps) => (
     </ul>
   </div>
 )
+
+type ModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
+const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded-lg max-w-md w-full">
+        <button onClick={onClose} className="float-right text-gray-500 hover:text-gray-700">
+          &times;
+        </button>
+        {children}
+      </div>
+    </div>
+  );
+};

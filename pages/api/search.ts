@@ -3,7 +3,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { query } = req.body;
-
     try {
       const response = await fetch('http://localhost:3000/api/search', {
         method: 'POST',
@@ -12,11 +11,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         body: JSON.stringify({ query }),
       });
-
       if (!response.ok) {
         throw new Error('Ошибка при поиске продуктов');
       }
-
       const data = await response.json();
       res.status(200).json(data);
     } catch (error) {
