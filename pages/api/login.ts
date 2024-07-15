@@ -5,14 +5,12 @@ const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3000';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { productLink } = req.body;
-    const token = req.headers.authorization;
-
+    const { olxEmail, password } = req.body;
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/olx-login`, 
-        { productLink },
-        { headers: { Authorization: token } }
-      );
+      const response = await axios.post(`${BACKEND_URL}/api/auth/login`, {
+        olxEmail,
+        password
+      });
       res.status(response.status).json(response.data);
     } catch (error) {
       console.error('Error calling backend server:', error);

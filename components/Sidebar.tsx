@@ -1,12 +1,50 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import axios from 'axios';
 
-type SidebarProps = {
-  isOpen: boolean
-  onClose: () => void
+interface Product {
+  _id: string;
+  product_name: string;
+}
+
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
-  const [historyItems] = useState<string[]>([])
+  const [userProducts, setUserProducts] = useState<Product[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserProducts = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          setError('No token found');
+          return;
+        }
+
+        const response = await axios.get<{ products: Product[] }>('http://localhost:3000/api/profile', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        if (response.data && Array.isArray(response.data.products)) {
+          setUserProducts(response.data.products);
+        } else {
+          setError('Invalid response format');
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setError(error.response?.data?.message || error.message);
+        } else {
+          setError('An unknown error occurred');
+        }
+      }
+    };
+
+    fetchUserProducts();
+  }, []);
 
   return (
     <aside
@@ -18,32 +56,42 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       `}
     >
       <div className="flex justify-between items-center mb-4">
-        <div className="text-[#8B5CF6] text-2xl font-bold">TapTap</div>
+        <div className="text-[#8B5CF6] text-2xl font-bold">
+          <Link href="/" legacyBehavior>
+            <a>TapTap</a>
+          </Link>
+        </div>
         <button onClick={onClose} className="md:hidden text-[#8B5CF6]">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
-
-      <button className="w-full bg-[#8B5CF6] text-white py-2 px-4 rounded mb-4 hover:bg-opacity-90 transition-colors duration-200">
-        Новый Запрос
-      </button>
-
+      <Link href="/chat" legacyBehavior>
+        <a className="w-full bg-[#8B5CF6] text-white py-2 px-4 rounded mb-4 hover:bg-opacity-90 transition-colors duration-200 text-center">
+          Новый Запрос
+        </a>
+      </Link>
+      <Link href="/link" legacyBehavior>
+        <a className="w-full bg-[#8B5CF6] text-white py-2 px-4 rounded mb-4 hover:bg-opacity-90 transition-colors duration-200 text-center">
+          Выбор по ссылке
+        </a>
+      </Link>
       <div className="flex-grow overflow-auto">
-        <h2 className="font-semibold mb-2 text-[#A78BFA]">История</h2>
+        <h2 className="font-semibold mb-2 text-[#A78BFA]">Мои продукты</h2>
+        {error && <p className="text-red-500">{error}</p>}
         <ul>
-          {historyItems.map((item, index) => (
-            <li key={index} className="mb-2 text-sm text-[#A78BFA] hover:text-opacity-75 cursor-pointer transition-opacity duration-200">
-              {item}
+          {userProducts.map((product) => (
+            <li key={product._id} className="mb-2">
+              <Link href={`/product/${product._id}`} legacyBehavior>
+                <a className="block w-full bg-[#4B5563] text-white py-2 px-4 rounded hover:bg-opacity-90 transition-colors duration-200 text-center">
+                  {product.product_name}
+                </a>
+              </Link>
             </li>
           ))}
         </ul>
       </div>
-
-      <div className="mt-4 flex justify-start space-x-4">
-        {/* Social icons here */}
-      </div>
     </aside>
-  )
+  );
 }

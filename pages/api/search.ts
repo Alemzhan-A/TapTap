@@ -4,7 +4,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     const { query } = req.body;
     try {
-      const response = await fetch('http://web-production-096d.up.railway.app/api/search', {
+      const response = await fetch('http://localhost:3000/api/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

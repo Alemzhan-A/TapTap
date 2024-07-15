@@ -59,7 +59,7 @@ const FAQSection: React.FC = () => {
   return (
     <section className="py-24 bg-gray-50" ref={ref}>
       <div className="container mx-auto px-4">
-        <motion.h2 
+        <motion.h2
           className="text-4xl font-bold text-center mb-12 text-[#33334D]"
           initial={{ opacity: 0, y: -50 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}

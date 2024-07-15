@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import HeaderChat from './HeaderChat'
 import { IoBookmark, IoCheckmarkCircle, IoCloseCircle, IoInformationCircle, IoSearch } from 'react-icons/io5'
 
@@ -31,6 +32,7 @@ type SearchResult = {
 }
 
 export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +41,14 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
   const [password, setPassword] = useState('');
   const [currentProductLink, setCurrentProductLink] = useState('');
   const [loginStatus, setLoginStatus] = useState<string>('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,9 +73,34 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
     }
   };
 
-  const handleOpenModal = (productLink: string) => {
-    setCurrentProductLink(productLink);
-    setIsModalOpen(true);
+  const handleOpenModal = async (productLink: string) => {
+    if (isAuthenticated) {
+      setIsModalOpen(true);
+      setLoginStatus('ИИ начинает переговоры с продавцом...');
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('/api/olx-login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ productLink }),
+        });
+        const data = await response.json();
+        if (data.success) {
+          setLoginStatus('ИИ начал вести переговоры с продавцом чтобы снизить цену');
+        } else {
+          setLoginStatus(data.message || 'Произошла ошибка');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setLoginStatus('Произошла ошибка при обработке запроса');
+      }
+    } else {
+      setIsModalOpen(true);
+      setLoginStatus('Вы должны войти в аккаунт');
+    }
   };
 
   const handleCloseModal = () => {
@@ -78,13 +113,15 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginStatus('Выполняется вход...');
+    const token = localStorage.getItem('token');
     try {
       const response = await fetch('/api/olx-login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ email, password, productLink: currentProductLink }),
+        body: JSON.stringify({ productLink: currentProductLink }),
       });
       if (!response.ok) {
         throw new Error('Ошибка входа');
@@ -117,7 +154,7 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
               />
               <button
                 type="submit"
-                className="bg-[#4A4AFA] text-white px-6 py-4 hover:bg-opacity-90 transition-colors duration-200 flex items-center justify-center"
+                className="bg-[#4A4AFA] w-1/7 h-16 text-white px-6 py-4 hover:bg-opacity-90 transition-colors duration-200 flex items-center justify-center"
                 disabled={isLoading}
               >
                 {isLoading ? 'Поиск...' : <IoSearch size={24} />}
@@ -204,7 +241,7 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
                                 className="bg-[#4A4AFA] text-white px-4 py-2 mt-2 rounded hover:bg-opacity-90 transition-colors duration-200"
                                 onClick={() => handleOpenModal(product.link)}
                               >
-                                Сторговаться
+                                {isAuthenticated ? 'Сторговаться' : 'Войдите, чтобы сторговаться'}
                               </button>
                             </div>
                           </div>
@@ -229,43 +266,12 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <h2 className="text-xl font-bold mb-4">Введите данные для OLX</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block mb-2">Почта:</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border rounded"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block mb-2">Пароль:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border rounded"
-              required
-            />
-          </div>
-          <button type="submit" className="bg-[#4A4AFA] text-white px-4 py-2 rounded hover:bg-opacity-90 transition-colors duration-200">
-            Отправить
-          </button>
-        </form>
-        {loginStatus && (
-          <p className="mt-4 text-center text-sm text-gray-600">{loginStatus}</p>
-        )}
-      </Modal>
+      <h2 className="text-xl font-bold mb-4">Статус</h2>
+      <p>{loginStatus}</p>
+    </Modal>
     </main>
   )
 }
-
-// The Feature and Modal components remain the same
 
 type FeatureProps = {
   title: string

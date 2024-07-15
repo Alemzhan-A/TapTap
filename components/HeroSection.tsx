@@ -44,7 +44,7 @@ const HeroSection: React.FC = () => {
             />
           </motion.h1>
           <motion.p
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-10 text-[#9c49bd]"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-10 text-[#6B6BFA]"
             initial={{ opacity: 0, y: 50 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -67,7 +67,7 @@ const HeroSection: React.FC = () => {
           <div className="text-center sm:text-left">
             <Link href="/chat" passHref>
               <motion.button
-                className="bg-[#9c49bd] text-white px-8 sm:px- py-3 sm:py-4 rounded-full text-lg sm:text-xl font-semibold hover:bg-[#8038a0] transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 mx-auto md:ml-0"
+                className="bg-[#916bfa] text-white px-8 sm:px- py-3 sm:py-4 rounded-full text-lg sm:text-xl font-semibold hover:bg-[#795acf] transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 mx-auto md:ml-0"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
