@@ -24,7 +24,7 @@ export default function Profile() {
           return;
         }
 
-        const response = await axios.get<UserData>('http://localhost:3000/api/profile', {
+        const response = await axios.get<UserData>('https://tap-tap-jade.vercel.app/api/profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data);

@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 
-const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3000';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -9,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const token = req.headers.authorization;
 
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/olx-login`, 
+      const response = await axios.post(`https://tap-tap-jade.vercel.app/api/olx-login`, 
         { productLink },
         { headers: { Authorization: token } }
       );

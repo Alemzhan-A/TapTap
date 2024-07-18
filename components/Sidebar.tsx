@@ -26,7 +26,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           return;
         }
 
-        const response = await axios.get<{ products: Product[] }>('http://localhost:3000/api/profile', {
+        const response = await axios.get<{ products: Product[] }>('https://tap-tap-jade.vercel.app/api/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -45,7 +45,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     };
     fetchUserProducts();
   }, []);
-  
+
   return (
     <aside
       className={`
