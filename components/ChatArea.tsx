@@ -31,6 +31,42 @@ type SearchResult = {
   }>;
 }
 
+const ProgressBar: React.FC<{ duration: number; onComplete: () => void; isProductFound: boolean }> = ({ duration, onComplete, isProductFound }) => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        if (prevProgress >= 95 || isProductFound) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prevProgress + (95 / (duration / 1000));
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [duration, isProductFound]);
+
+  useEffect(() => {
+    if (progress === 100) {
+      onComplete();
+    }
+  }, [progress, onComplete]);
+
+  return (
+    <div className="w-full mb-4">
+      <div className="bg-gray-200 rounded-full h-2.5 mb-2">
+        <div 
+          className="bg-blue-600 h-2.5 rounded-full transition-all duration-500 ease-out" 
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
+      <p className="text-sm text-gray-600 text-center">Обычно поиск занимает 1-2 минуты. Мы подбираем самые лучшие варианты.</p>
+    </div>
+  );
+};
+
 export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [query, setQuery] = useState('');
@@ -42,6 +78,8 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
   const [currentProductLink, setCurrentProductLink] = useState('');
   const [loginStatus, setLoginStatus] = useState<string>('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showProgressBar, setShowProgressBar] = useState(false);
+  const [isProductFound, setIsProductFound] = useState(false);
 
   const router = useRouter();
 
@@ -53,6 +91,8 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setShowProgressBar(true);
+    setIsProductFound(false);
     try {
       const response = await fetch('/api/search', {
         method: 'POST',
@@ -66,11 +106,15 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
       }
       const data = await response.json();
       setResults(data);
+      setIsProductFound(true);
     } catch (error) {
       console.error('Ошибка при поиске:', error);
-    } finally {
-      setIsLoading(false);
     }
+  };
+
+  const handleProgressComplete = () => {
+    setIsLoading(false);
+    setShowProgressBar(false);
   };
 
   const handleOpenModal = async (productLink: string) => {
@@ -144,13 +188,13 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
         <div className="w-full max-w-4xl">
           <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#4A4AFA]">Что хотите купить?</h1>
           <form onSubmit={handleSearch} className="mb-8">
-            <div className="flex items-center border-2 border-[#4A4AFA] rounded-full overflow-hidden bg-white shadow-lg">
+          <div className="flex items-center border-2 border-[#4A4AFA] rounded-full overflow-hidden bg-white shadow-lg">
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Например: дешевый, но хороший ноутбук для работы"
-                className="w-full p-4 focus:outline-none text-[#4A4AFA] text-lg"
+                placeholder="Например: лучший смартфон для бравл старса"
+                className="w-full p-4 focus:outline-none text-[#4A4AFA] text-base md:text-lg"
               />
               <button
                 type="submit"
@@ -172,6 +216,13 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
               </span>
             ))}
           </div>
+          {showProgressBar && (
+            <ProgressBar 
+              duration={120000} 
+              onComplete={handleProgressComplete} 
+              isProductFound={isProductFound}
+            />
+          )}
           {results && (
             <div className="bg-white rounded-xl shadow-xl p-6">
               <h2 className="text-2xl font-bold mb-6 text-[#4A4AFA] flex items-center">
@@ -221,7 +272,6 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
                         {rec.olxProducts.map((product, idx) => (
                           <div 
                             key={idx}
-                           
                             className="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200"
                           >
                             <div className="relative w-full h-0 pb-[75%]">
@@ -266,9 +316,9 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-      <h2 className="text-xl font-bold mb-4">Статус</h2>
-      <p>{loginStatus}</p>
-    </Modal>
+        <h2 className="text-xl font-bold mb-4">Статус</h2>
+        <p>{loginStatus}</p>
+      </Modal>
     </main>
   )
 }

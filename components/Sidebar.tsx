@@ -5,6 +5,7 @@ import axios from 'axios';
 interface Product {
   _id: string;
   product_name: string;
+  isOver: boolean;
 }
 
 interface SidebarProps {
@@ -42,10 +43,9 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         }
       }
     };
-
     fetchUserProducts();
   }, []);
-
+  
   return (
     <aside
       className={`
@@ -84,8 +84,19 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           {userProducts.map((product) => (
             <li key={product._id} className="mb-2">
               <Link href={`/product/${product._id}`} legacyBehavior>
-                <a className="block w-full bg-[#4B5563] text-white py-2 px-4 rounded hover:bg-opacity-90 transition-colors duration-200 text-center">
-                  {product.product_name}
+                <a className="block w-full">
+                  {product.isOver ? (
+                    <div className="bg-red-500 text-white text-sm py-1 px-2 rounded-t text-center">
+                      Закончено
+                    </div>
+                  ) : (
+                    <div className="bg-green-500 text-white text-sm py-1 px-2 rounded-t text-center">
+                      В процессе
+                    </div>
+                  )}
+                  <div className="bg-[#4B5563] text-white py-2 px-4 rounded-b hover:bg-opacity-90 transition-colors duration-200 text-center">
+                    {product.product_name}
+                  </div>
                 </a>
               </Link>
             </li>
