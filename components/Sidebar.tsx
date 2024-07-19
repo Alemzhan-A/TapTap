@@ -26,7 +26,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           return;
         }
 
-        const response = await axios.get<{ products: Product[] }>('https://web-production-8d99.up.railway.app/api/profile', {
+        const response = await axios.get<{ products: Product[] }>('https://multiple-silvana-taptaptap-21f8273d.koyeb.app/api/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -45,7 +45,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     };
     fetchUserProducts();
   }, []);
-
+  
   return (
     <aside
       className={`

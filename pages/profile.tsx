@@ -24,7 +24,7 @@ export default function Profile() {
           return;
         }
 
-        const response = await axios.get<UserData>('https://web-production-8d99.up.railway.app/api/profile', {
+        const response = await axios.get<UserData>('https://multiple-silvana-taptaptap-21f8273d.koyeb.app/api/profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data);
