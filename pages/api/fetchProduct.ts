@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const response = await axios.get(`http://localhost:3000/api/product/${id}`, {
+    const response = await axios.get(`https://web-production-8d99.up.railway.app/api/product/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
