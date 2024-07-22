@@ -13,7 +13,7 @@ export default function Login() {
     try {
       const response = await axios.post('/api/login', { olxEmail, password });
       localStorage.setItem('token', response.data.token);
-      window.location.href = 'https://tap-tap-jade.vercel.app/chat';
+      window.location.href = 'http://localhost:3000/chat';
     } catch (error) {
       setError('Invalid login credentials. Please try again.');
     }

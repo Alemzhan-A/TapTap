@@ -31,38 +31,41 @@ type SearchResult = {
   }>;
 }
 
-const ProgressBar: React.FC<{ duration: number; onComplete: () => void; isProductFound: boolean }> = ({ duration, onComplete, isProductFound }) => {
+const ProgressBar: React.FC<{ onComplete: () => void; isProductFound: boolean }> = ({ onComplete, isProductFound }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
-        if (prevProgress >= 95 || isProductFound) {
+        if (prevProgress >= 95) {
           clearInterval(interval);
-          return 100;
+          return 95;
         }
-        return prevProgress + (95 / (duration / 1000));
+        return prevProgress + (95 / 600);
       });
-    }, 1000);
+    }, 100);
 
     return () => clearInterval(interval);
-  }, [duration, isProductFound]);
+  }, []);
 
   useEffect(() => {
-    if (progress === 100) {
+    if (isProductFound) {
+      setProgress(100);
       onComplete();
     }
-  }, [progress, onComplete]);
+  }, [isProductFound, onComplete]);
 
   return (
     <div className="w-full mb-4">
       <div className="bg-gray-200 rounded-full h-2.5 mb-2">
-        <div 
-          className="bg-blue-600 h-2.5 rounded-full transition-all duration-500 ease-out" 
+        <div
+          className="bg-blue-600 h-2.5 rounded-full transition-all duration-500 ease-out"
           style={{ width: `${progress}%` }}
         ></div>
       </div>
-      <p className="text-sm text-gray-600 text-center">Обычно поиск занимает 1-2 минуты. Мы подбираем самые лучшие варианты.</p>
+      <p className="text-sm text-gray-600 text-center">
+        {progress < 95 ? "Обычно поиск занимает 1 минуту. Мы подбираем самые лучшие варианты." : "Почти готово! Ждем результатов..."}
+      </p>
     </div>
   );
 };
@@ -106,7 +109,7 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
       }
       const data = await response.json();
       setResults(data);
-      setIsProductFound(true);
+      setIsProductFound(true); 
     } catch (error) {
       console.error('Ошибка при поиске:', error);
     }
@@ -206,7 +209,7 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
             </div>
           </form>
           <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {['Хорошие часы для тоя', 'Наушники с шумоподавлением', 'Топовые кроссовки на лето 2024'].map((suggestion) => (
+            {['Лучший смартфон для бравл старса', 'Наушники с шумоподавлением', 'Топовые кроссовки на лето 2024'].map((suggestion) => (
               <span
                 key={suggestion}
                 className="bg-white border-2 border-[#4A4AFA] px-4 py-2 rounded-full text-sm cursor-pointer hover:bg-[#4A4AFA] hover:text-white text-[#4A4AFA] transition-colors duration-200"
@@ -218,7 +221,6 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
           </div>
           {showProgressBar && (
             <ProgressBar 
-              duration={120000} 
               onComplete={handleProgressComplete} 
               isProductFound={isProductFound}
             />

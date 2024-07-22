@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ success: false, message: 'Все поля обязательны' });
     }
     try {
-      const response = await axios.post(`https://multiple-silvana-taptaptap-21f8273d.koyeb.app/api/auth/register`, {
+      const response = await axios.post(`http://localhost:3000/api/auth/register`, {
         username,
         olxEmail,
         password

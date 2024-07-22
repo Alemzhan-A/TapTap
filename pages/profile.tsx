@@ -24,7 +24,7 @@ export default function Profile() {
           return;
         }
 
-        const response = await axios.get<UserData>('https://multiple-silvana-taptaptap-21f8273d.koyeb.app/api/profile', {
+        const response = await axios.get<UserData>('http://localhost:3000/api/profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data);

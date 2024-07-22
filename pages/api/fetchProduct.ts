@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const response = await axios.get(`https://multiple-silvana-taptaptap-21f8273d.koyeb.app/api/product/${id}`, {
+    const response = await axios.get(`http://localhost:3000/api/product/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 

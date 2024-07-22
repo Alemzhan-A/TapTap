@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     const { olxEmail, password } = req.body;
     try {
-      const response = await axios.post(`https://multiple-silvana-taptaptap-21f8273d.koyeb.app/api/auth/login`, {
+      const response = await axios.post(`http://localhost:3000/api/auth/login`, {
         olxEmail,
         password
       });

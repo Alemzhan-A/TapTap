@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const token = req.headers.authorization;
 
     try {
-      const response = await axios.post(`https://multiple-silvana-taptaptap-21f8273d.koyeb.app/api/olx-login`, 
+      const response = await axios.post(`http://localhost:3000/api/olx-login`, 
         { productLink },
         { headers: { Authorization: token } }
       );

@@ -14,7 +14,7 @@ export default function Register() {
     try {
       const response = await axios.post('/api/register', { username, olxEmail, password });
       localStorage.setItem('token', response.data.token);
-      window.location.href = 'https://tap-tap-jade.vercel.app/chat';
+      window.location.href = 'http://localhost:3001/chat';
     } catch (error) {
       setError('Registration failed. Please try again.');
     }

@@ -26,7 +26,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           return;
         }
 
-        const response = await axios.get<{ products: Product[] }>('https://multiple-silvana-taptaptap-21f8273d.koyeb.app/api/profile', {
+        const response = await axios.get<{ products: Product[] }>('http://localhost:3000/api/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
 
