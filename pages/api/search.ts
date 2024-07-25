@@ -15,6 +15,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         throw new Error('Ошибка при поиске продуктов');
       }
       const data = await response.json();
+      console.log("ВОТ ЧТО ПРИНИМАЕМ")
+      console.log(data)
       res.status(200).json(data);
     } catch (error) {
       console.error('Ошибка при поиске:', error);
