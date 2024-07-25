@@ -1,9 +1,9 @@
 {
   "functions": {
     "api/search.ts": {
-      "maxDuration": 90
+      "maxDuration": 60
     }
   }
 
-  
+
 }
