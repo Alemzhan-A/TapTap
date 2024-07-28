@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import MeshGradientBackground from './MeshGradientBackground';
+
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,8 +18,9 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="bg-gradient-to-r from-[#1E0033] to-[#300050] text-white w-full z-50 sticky">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+    <header className="relative text-white w-full z-50">
+      <MeshGradientBackground />
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center relative z-10">
         <Link href="/" legacyBehavior>
           <a className="text-2xl font-bold text-[#6B6BFA] md:ml-20 ml-4">TapTap</a>
         </Link>

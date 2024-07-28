@@ -9,19 +9,19 @@ import AIFeatures from '@/components/AIFeatures';
 import StatsSection from '@/components/StatsSection';
 import FAQSection from '@/components/FAQSection';
 import AnimatedPhrase from '@/components/AnimatedPhrase';
+import HeaderHero from '@/components/HeaderHero';
 
 const Home: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col ">
       <Head>
         <title>TapTap - Умный поиск вещей</title>
         <meta name="description" content="Купи что-угодно за свою цену" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Header />
+      
       <main className="flex-grow">
-        <HeroSection />
+      <HeaderHero />
         <AnimatedPhrase />
         <HowItWorks />
         <AIFeatures />

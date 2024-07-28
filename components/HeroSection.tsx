@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
 import { TypeAnimation } from 'react-type-animation';
+import MeshGradientBackground from './MeshGradientBackground';
 
 const HeroSection: React.FC = () => {
   const { ref, inView } = useInView({
@@ -12,10 +13,10 @@ const HeroSection: React.FC = () => {
 
   return (
     <section
-      className="relative bg-[#1E0033] overflow-hidden min-h-screen flex flex-col justify-between z-10"
+      className="relative overflow-hidden min-h-screen flex flex-col justify-between z-10"
       ref={ref}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1E0033] to-[#300050] z-0"></div>
+      <MeshGradientBackground />
       <div className="container mx-auto px-4 flex flex-col justify-center items-start h-full relative z-10">
         <div className="w-full md:w-3/4 p-4 md:pl-20">
           <motion.h1
