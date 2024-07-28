@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html lang="ru">
         <Head>
-          {/* Здесь можно добавить дополнительные мета-теги, ссылки на шрифты и т.д. */}
+        <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>
           <Main />

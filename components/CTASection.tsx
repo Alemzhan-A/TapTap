@@ -55,7 +55,7 @@ const CTASection: React.FC = () => {
         animate={inView ? { opacity: 0.1 } : { opacity: 0 }}
         transition={{ duration: 1 }}
       >
-        <div className="w-full h-full bg-[url('/pattern.svg')] opacity-10"></div>
+        <div className="w-full h-full opacity-10"></div>
       </motion.div>
     </section>
   );
