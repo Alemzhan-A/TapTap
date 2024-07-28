@@ -276,26 +276,34 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
                             key={idx}
                             className="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200"
                           >
-                            <div className="relative w-full h-0 pb-[75%]">
-                              <img 
-                                src={product.imageUrl} 
-                                alt={product.title} 
-                                className="absolute inset-0 w-full h-full object-contain bg-gray-100"
-                                onError={(e) => {
-                                  (e.target as HTMLImageElement).src = '/placeholder-image.jpg';
-                                }}
-                              />
+                            <div className="flex flex-col h-full justify-between">
+                            <div>
+                              <div className="relative w-full pb-[75%]">
+                                <img
+                                  src={product.imageUrl}
+                                  alt={product.title}
+                                  className="absolute inset-0 w-full h-full object-contain bg-gray-100"
+                                  onError={(e) => {
+                                    (e.target as HTMLImageElement).src = '/placeholder-image.jpg';
+                                  }}
+                                />
+                              </div>
+                              <div className="p-4">
+                                <h5 className="font-semibold text-[#4A4AFA] mb-2 line-clamp-2">
+                                  <a href={product.link}>{product.title}</a>
+                                </h5>
+                                <p className="text-gray-600 font-bold">{product.price}</p>
+                              </div>
                             </div>
-                            <div className="p-4">
-                              <h5 className="font-semibold text-[#4A4AFA] mb-2 line-clamp-2 h-12"><a href={product.link}>{product.title}</a></h5>
-                              <p className="text-gray-600 font-bold">{product.price}</p>
-                              <button 
-                                className="bg-[#4A4AFA] text-white px-4 py-2 mt-2 rounded hover:bg-opacity-90 transition-colors duration-200"
+                            <div className="p-4 pt-0">
+                              <button
+                                className="bg-[#4A4AFA] text-white px-4 py-2 w-full rounded hover:bg-opacity-90 transition-colors duration-200"
                                 onClick={() => handleOpenModal(product.link)}
                               >
                                 {isAuthenticated ? 'Сторговаться' : 'Войдите, чтобы сторговаться'}
                               </button>
                             </div>
+                          </div>
                           </div>
                         ))}
                       </div>
