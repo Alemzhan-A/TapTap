@@ -23,7 +23,7 @@ export default function ProductPage({ id }: { id: string }) {
     const fetchProduct = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
-        setError('No token found');
+        setError('Вход не выполнен');
         setLoading(false);
         return;
       }
