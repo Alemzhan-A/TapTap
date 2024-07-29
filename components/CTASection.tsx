@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -8,6 +9,12 @@ const CTASection: React.FC = () => {
     triggerOnce: true,
     threshold: 0.25,
   });
+
+  const router = useRouter();
+
+    const handleStartSearch = () => {
+      router.push('/chat');
+    };
 
   return (
     <section className="py-32 bg-[#EDF7FF] relative overflow-hidden" ref={ref}>
@@ -43,6 +50,7 @@ const CTASection: React.FC = () => {
             className="bg-[#7225B4] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#5A5AE6] transition duration-300 flex items-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={handleStartSearch}
           >
             Начать поиск
             <ArrowRight className="ml-2" />

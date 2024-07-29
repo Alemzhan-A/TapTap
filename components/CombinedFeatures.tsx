@@ -80,7 +80,7 @@ const HowItWorks: React.FC = () => {
     <section className="py-24 bg-purple-900/40 backdrop-blur-sm rounded-lg" ref={ref}>
       <div className="container mx-auto px-4">
         <motion.h2
-          className="text-4xl font-bold text-center mb-16 text-white"
+          className="text-5xl font-bold text-center mb-16 text-white"
           initial={{ opacity: 0, y: -50 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
           transition={{ duration: 0.8 }}
@@ -128,8 +128,8 @@ const AIFeatures: React.FC = () => {
   return (
     <section className="py-24 bg-gradient-to-br from-purple-900/30 to-indigo-900/30 backdrop-blur-sm rounded-lg" ref={ref}>
       <div className="container mx-auto px-4">
-        <motion.h2
-          className="text-5xl font-bold text-center mb-16 text-[#EDF7FF]"
+      <motion.h2
+          className="text-4xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 md:mb-16 text-[#EDF7FF]"
           initial={{ opacity: 0, y: -50 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
           transition={{ duration: 0.8 }}
