@@ -8,16 +8,16 @@ const AnimatedPhrase: React.FC = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setContainerHeight(window.innerHeight * 4); // Высота для трех слов
+      setContainerHeight(window.innerHeight * 4);
     }
   }, []);
 
   return (
-    <section className="bg-[#EDF7FF] relative" style={{ height: `${containerHeight}px` }}>
+    <section className="bg-[#1E0033] relative" style={{ height: `${containerHeight}px` }}>
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center">
         {words.map((word, index) => (
           <WordSection key={index} word={word} index={index} scrollY={scrollY} />
-        ))}
+        ))} 
       </div>
     </section>
   );
@@ -46,7 +46,7 @@ const WordSection: React.FC<{ word: string; index: number; scrollY: MotionValue<
 
   return (
     <motion.h2
-      className="text-5xl md:text-7xl font-bold mb-6 text-[#6B6BFA]"
+      className="text-5xl md:text-7xl font-bold mb-6 text-white"
       style={{ y, opacity }}
     >
       {word}

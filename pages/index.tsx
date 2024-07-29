@@ -10,6 +10,7 @@ import StatsSection from '@/components/StatsSection';
 import FAQSection from '@/components/FAQSection';
 import AnimatedPhrase from '@/components/AnimatedPhrase';
 import HeaderHero from '@/components/HeaderHero';
+import CombinedFeatures from '@/components/CombinedFeatures';
 
 const Home: React.FC = () => {
   return (
@@ -23,8 +24,7 @@ const Home: React.FC = () => {
       <main className="flex-grow">
       <HeaderHero />
         <AnimatedPhrase />
-        <HowItWorks />
-        <AIFeatures />
+        <CombinedFeatures />
         <StatsSection />
         <CTASection />
         <FAQSection />

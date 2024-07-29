@@ -16,7 +16,7 @@ const StatsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-[#6B6BFA]" ref={ref}>
+    <section className="py-24 bg-[#7225B4]" ref={ref}>
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {stats.map((stat, index) => (

@@ -9,8 +9,8 @@ const Footer: React.FC = () => {
           <p>&copy; {new Date().getFullYear()} TapTap. Все права защищены.</p>
           <nav className="mt-4 md:mt-0">
             <ul className="flex space-x-4">
-              <li><Link href="/terms" legacyBehavior><a className="hover:text-[#6B6BFA]">Условия использования</a></Link></li>
-              <li><Link href="/privacy" legacyBehavior><a className="hover:text-[#6B6BFA]">Политика конфиденциальности</a></Link></li>
+              <li><Link href="/" legacyBehavior><a className="hover:text-[#6B6BFA]">Условия использования</a></Link></li>
+              <li><Link href="/" legacyBehavior><a className="hover:text-[#6B6BFA]">Политика конфиденциальности</a></Link></li>
             </ul>
           </nav>
         </div>

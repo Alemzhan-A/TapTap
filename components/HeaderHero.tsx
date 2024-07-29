@@ -22,11 +22,18 @@ const MeshGradientBackground = () => {
             <stop offset="0%" stopColor="#4A007D" />
             <stop offset="100%" stopColor="#300050" stopOpacity="0" />
           </radialGradient>
+          {/* Новый линейный градиент для плавного перехода */}
+          <linearGradient id="bottomGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#1E0033" stopOpacity="0" />
+            <stop offset="100%" stopColor="#1E0033" />
+          </linearGradient>
         </defs>
         <rect width="100%" height="100%" fill="#1E0033" />
         <rect width="100%" height="100%" fill="url(#gradient1)" />
         <rect width="100%" height="100%" fill="url(#gradient2)" opacity="0.7" />
         <rect width="100%" height="100%" fill="url(#gradient3)" opacity="0.6" />
+        {/* Новый прямоугольник с градиентом для нижней части */}
+        <rect width="100%" height="30%" y="70%" fill="url(#bottomGradient)" />
         <filter id="noise">
           <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
           <feComposite operator="in" in2="SourceGraphic" result="noisy"/>
@@ -42,9 +49,9 @@ const HeaderHero: React.FC = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const menuItems = [
     { label: 'Главная', href: '/' },
-    { label: 'О нас', href: '/about' },
-    { label: 'Как это работает', href: '/how-it-works' },
-    { label: 'Контакты', href: '/contact' },
+    { label: 'О нас', href: '/' },
+    { label: 'Как это работает', href: '/' },
+    { label: 'Контакты', href: 'https://t.me/Worb1K' },
   ];
 
   const { ref, inView } = useInView({
