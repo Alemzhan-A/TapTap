@@ -32,7 +32,7 @@ export default function Login() {
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="olx-email" className="sr-only">
-                Почта OLX
+                OLX Email
               </label>
               <input
                 id="olx-email"
@@ -40,14 +40,14 @@ export default function Login() {
                 type="email"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="OLX Email"
+                placeholder="Почта OLX"
                 value={olxEmail}
                 onChange={(e) => setOlxEmail(e.target.value)}
               />
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
-                Пароль OLX
+                Password
               </label>
               <input
                 id="password"
@@ -55,7 +55,7 @@ export default function Login() {
                 type="password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
+                placeholder="Пароль от OLX"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

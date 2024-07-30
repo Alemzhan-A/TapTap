@@ -48,7 +48,7 @@ export default function Register() {
             </div>
             <div>
               <label htmlFor="olx-email" className="sr-only">
-                Почта от OLX
+                OLX Email
               </label>
               <input
                 id="olx-email"
@@ -56,14 +56,14 @@ export default function Register() {
                 type="email"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="OLX Email"
+                placeholder="Почта от OLX"
                 value={olxEmail}
                 onChange={(e) => setOlxEmail(e.target.value)}
               />
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
-                Пароль от OLX
+                Password
               </label>
               <input
                 id="password"
@@ -71,7 +71,7 @@ export default function Register() {
                 type="password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="OLX Password"
+                placeholder="Пароль от OLX"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -89,7 +89,7 @@ export default function Register() {
         </form>
         {error && <p className="mt-2 text-center text-sm text-red-600">{error}</p>}
         <p className="mt-2 text-center text-sm text-gray-600">
-          Пожалуйста, введите действительные данные
+          Примечание: Пожалуйста, введите действительные данные. Мы не получаем никакой выгоды от ваших аккаунтов OLX
         </p>
       </div>
     </div>
