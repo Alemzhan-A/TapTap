@@ -234,19 +234,19 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
       <HeaderChat onOpenSidebar={onOpenSidebar} />
       <div className="flex-grow flex flex-col items-center justify-start px-4 py-8 z-10 relative">
         <div className="w-full max-w-4xl">
-          <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#4A4AFA]">Что хотите купить?</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#8B5CF6]">Что хотите купить?</h1>
           <form onSubmit={handleSearch} className="mb-8">
-          <div className="flex items-center border-2 border-[#4A4AFA] rounded-full overflow-hidden bg-white shadow-lg">
+          <div className="flex items-center border-2 border-[#8B5CF6] rounded-full overflow-hidden bg-white shadow-lg">
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Например: лучший смартфон для бравл старса"
-                className="w-full p-4 focus:outline-none text-[#4A4AFA] text-base md:text-lg"
+                className="w-full p-4 focus:outline-none text-[#8B5CF6] text-base md:text-lg"
               />
               <button
                 type="submit"
-                className="bg-[#4A4AFA] w-1/7 h-16 text-white px-6 py-4 hover:bg-opacity-90 transition-colors duration-200 flex items-center justify-center"
+                className="bg-[#8B5CF6] w-1/7 h-16 text-white px-6 py-4 hover:bg-opacity-90 transition-colors duration-200 flex items-center justify-center"
                 disabled={isLoading}
               >
                 {isLoading ? 'Поиск...' : <IoSearch size={24} />}
@@ -257,7 +257,7 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
             {['Лучший смартфон для бравл старса', 'Наушники с шумоподавлением', 'Топовые кроссовки на лето 2024'].map((suggestion) => (
               <span
                 key={suggestion}
-                className="bg-white border-2 border-[#4A4AFA] px-4 py-2 rounded-full text-sm cursor-pointer hover:bg-[#4A4AFA] hover:text-white text-[#4A4AFA] transition-colors duration-200"
+                className="bg-white border-2 border-[#8B5CF6] px-4 py-2 rounded-full text-sm cursor-pointer hover:bg-[#8B5CF6] hover:text-white text-[#8B5CF6] transition-colors duration-200"
                 onClick={() => setQuery(suggestion)}
               >
                 {suggestion}
@@ -272,13 +272,13 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
           )}
           {results && (
             <div className="bg-white rounded-xl shadow-xl p-6">
-              <h2 className="text-2xl font-bold mb-6 text-[#4A4AFA] flex items-center">
+              <h2 className="text-2xl font-bold mb-6 text-[#8B5CF6] flex items-center">
                 <IoBookmark className="mr-2" />
                 Результаты поиска
               </h2>
               {results.recommendations.map((rec, index) => (
                 <div key={index} className="mb-8 border-b border-gray-200 pb-8 last:border-b-0 last:pb-0">
-                  <h3 className="font-bold text-xl mb-4 text-[#4A4AFA]">{rec.productName}</h3>
+                  <h3 className="font-bold text-xl mb-4 text-[#8B5CF6]">{rec.productName}</h3>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <Feature 
