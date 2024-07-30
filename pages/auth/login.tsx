@@ -24,7 +24,7 @@ export default function Login() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+            Войти в аккаунт
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -32,7 +32,7 @@ export default function Login() {
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="olx-email" className="sr-only">
-                OLX Email
+                Почта OLX
               </label>
               <input
                 id="olx-email"
@@ -47,7 +47,7 @@ export default function Login() {
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
-                Password
+                Пароль OLX
               </label>
               <input
                 id="password"

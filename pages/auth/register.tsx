@@ -25,7 +25,7 @@ export default function Register() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Register for an account
+            Регистрация
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -33,7 +33,7 @@ export default function Register() {
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="username" className="sr-only">
-                Username
+                Имя
               </label>
               <input
                 id="username"
@@ -48,7 +48,7 @@ export default function Register() {
             </div>
             <div>
               <label htmlFor="olx-email" className="sr-only">
-                OLX Email
+                Почта от OLX
               </label>
               <input
                 id="olx-email"
@@ -63,7 +63,7 @@ export default function Register() {
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
-                Password
+                Пароль от OLX
               </label>
               <input
                 id="password"
@@ -89,7 +89,7 @@ export default function Register() {
         </form>
         {error && <p className="mt-2 text-center text-sm text-red-600">{error}</p>}
         <p className="mt-2 text-center text-sm text-gray-600">
-          Note: Your OLX password will also be used as your account password for this site.
+          Пожалуйста, введите действительные данные
         </p>
       </div>
     </div>
