@@ -31,6 +31,11 @@ type SearchResult = {
   }>;
 }
 
+const extractNumberFromPrice = (price: string): number => {
+  const numericString = price.replace(/[^0-9]/g, '');
+  return parseInt(numericString, 10);
+};
+
 const ProgressBar: React.FC<{ onComplete: () => void; isProductFound: boolean }> = ({ onComplete, isProductFound }) => {
   const [progress, setProgress] = useState(0);
 
@@ -48,6 +53,8 @@ const ProgressBar: React.FC<{ onComplete: () => void; isProductFound: boolean }>
     return () => clearInterval(interval);
   }, []);
 
+  
+
   useEffect(() => {
     if (isProductFound) {
       setProgress(100);
@@ -64,7 +71,7 @@ const ProgressBar: React.FC<{ onComplete: () => void; isProductFound: boolean }>
         ></div>
       </div>
       <p className="text-sm text-gray-600 text-center">
-        {progress < 95 ? "Обычно поиск занимает 1 минуту. Мы подбираем самые лучшие варианты." : "Почти готово! Ждем результатов..."}
+        {progress < 95 ? "Обычно поиск занимает меньше 1 минуты. Мы подбираем самые лучшие варианты." : "Почти готово! Ждем результатов..."}
       </p>
     </div>
   );
@@ -133,6 +140,8 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
       setLoginStatus('Добавление продукта в очередь...');
       try {
         const token = localStorage.getItem('token');
+        const numericPrice = extractNumberFromPrice(productPrice);
+        
         const response = await fetch('/api/add-product-to-queue', {
           method: 'POST',
           headers: {
@@ -142,14 +151,14 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
           body: JSON.stringify({ 
             productLink,
             product_name: productName, 
-            initial_price: productPrice, 
-            current_price: productPrice, 
+            initial_price: numericPrice, 
+            current_price: numericPrice, 
             conversation_link: "Ссылка на диалог",
           }),
         });
         const data = await response.json();
         if (data.success) {
-          setLoginStatus('Продукт успешно добавлен в очередь для переговоров');
+          setLoginStatus('Продукт успешно добавлен в очередь для переговоров. ИИ свяжется с продавцом в ближайшее время. Вы можете следить за этим в вкладке "Мои сделки" ');
         } else {
           setLoginStatus(data.message || 'Произошла ошибка при добавлении продукта');
         }
