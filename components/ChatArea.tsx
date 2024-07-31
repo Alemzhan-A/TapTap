@@ -130,22 +130,28 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
   const handleOpenModal = async (productLink: string) => {
     if (isAuthenticated) {
       setIsModalOpen(true);
-      setLoginStatus('ИИ начинает переговоры с продавцом...');
+      setLoginStatus('Добавление продукта в очередь...');
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('/api/olx-login', {
+        const response = await fetch('/api/add-product-to-queue', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ productLink }),
+          body: JSON.stringify({ 
+            productLink,
+            product_name: "Название продукта", 
+            initial_price: 0, 
+            current_price: 0, 
+            conversation_link: "Ссылка на диалог",
+          }),
         });
         const data = await response.json();
         if (data.success) {
-          setLoginStatus('ИИ начал вести переговоры с продавцом чтобы снизить цену');
+          setLoginStatus('Продукт успешно добавлен в очередь для переговоров');
         } else {
-          setLoginStatus(data.message || 'Произошла ошибка');
+          setLoginStatus(data.message || 'Произошла ошибка при добавлении продукта');
         }
       } catch (error) {
         console.error('Error:', error);
