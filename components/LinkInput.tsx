@@ -12,6 +12,11 @@ type ModalProps = {
   children: React.ReactNode;
 };
 
+const extractNumberFromPrice = (price: string): number => {
+  const numericString = price.replace(/[^0-9]/g, '');
+  return parseInt(numericString, 10);
+};
+
 const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   if (!isOpen) return null;
   return (
@@ -79,22 +84,29 @@ export default function LinkInput({ onOpenSidebar }: HeaderProps) {
     e.preventDefault();
     if (isAuthenticated) {
       setIsModalOpen(true);
-      setLoginStatus('ИИ начинает переговоры с продавцом...');
+      setLoginStatus('Добавление продукта в очередь...');
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('/api/olx-login', {
+        
+        const response = await fetch('/api/add-product-to-queue', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify({ productLink: link }),
+          body: JSON.stringify({ 
+            productLink: link,
+            product_name: "Ожидается",
+            initial_price: 0,
+            current_price: 0,
+            conversation_link: "Ссылка на диалог",
+          }),
         });
         const data = await response.json();
         if (data.success) {
-          setLoginStatus('ИИ начал вести переговоры с продавцом чтобы снизить цену');
+          setLoginStatus('Продукт успешно добавлен в очередь для переговоров. ИИ свяжется с продавцом в ближайшее время. Вы можете следить за этим в вкладке "Мои сделки" ');
         } else {
-          setLoginStatus(data.message || 'Произошла ошибка');
+          setLoginStatus(data.message || 'Произошла ошибка при добавлении продукта');
         }
       } catch (error) {
         console.error('Error:', error);
