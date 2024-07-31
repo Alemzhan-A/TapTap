@@ -115,7 +115,12 @@ export default function ProductsPage({ onOpenSidebar }: HeaderProps) {
                   <tr key={product._id} className={`border-b ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-gray-100 transition-colors duration-150`}>
                     <td className="px-4 py-3">{product.product_name}</td>
                     <td className="px-4 py-3">
-                      ₸{(product.initial_price - product.current_price).toFixed(2)}
+                      <span className="font-bold text-green-600 text-lg">
+                        ₸{(product.initial_price - product.current_price).toFixed(2)}
+                      </span>
+                      <span className="text-xs text-gray-500 ml-1">
+                        ({(((product.initial_price - product.current_price) / product.initial_price) * 100).toFixed(1)}%)
+                      </span>
                     </td>
                     <td className="px-4 py-3">₸{product.current_price.toFixed(2)}</td>
                     <td className="px-4 py-3"><span className="line-through">₸{product.initial_price.toFixed(2)}</span></td>
