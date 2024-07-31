@@ -127,7 +127,7 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
     setShowProgressBar(false);
   };
 
-  const handleOpenModal = async (productLink: string) => {
+  const handleOpenModal = async (productName: string, productPrice: string, productLink: string) => {
     if (isAuthenticated) {
       setIsModalOpen(true);
       setLoginStatus('Добавление продукта в очередь...');
@@ -141,9 +141,9 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
           },
           body: JSON.stringify({ 
             productLink,
-            product_name: "Название продукта", 
-            initial_price: 0, 
-            current_price: 0, 
+            product_name: productName, 
+            initial_price: productPrice, 
+            current_price: productPrice, 
             conversation_link: "Ссылка на диалог",
           }),
         });
@@ -349,7 +349,7 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
                             <div className="p-4 pt-0">
                               <button
                                 className="bg-[#4A4AFA] text-white px-4 py-2 w-full rounded hover:bg-opacity-90 transition-colors duration-200"
-                                onClick={() => handleOpenModal(product.link)}
+                                onClick={() => handleOpenModal(product.title, product.price, product.link)}
                               >
                                 {isAuthenticated ? 'Сторговаться' : 'Войдите, чтобы сторговаться'}
                               </button>
