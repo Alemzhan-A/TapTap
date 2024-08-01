@@ -5,7 +5,7 @@ import axios from 'axios';
 // Определим интерфейс для пользовательских данных
 interface UserData {
   username: string;
-  olxEmail: string;
+  name: string;
   // Добавьте другие поля, если они есть
 }
 
@@ -45,7 +45,7 @@ export default function Profile() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Profile</h2>
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Профиль</h2>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -53,7 +53,7 @@ export default function Profile() {
           {user && (
             <div>
               <p><strong>Username:</strong> {user.username}</p>
-              <p><strong>OLX Email:</strong> {user.olxEmail}</p>
+              <p><strong>Name:</strong> {user.name}</p>
             </div>
           )}
         </div>
