@@ -109,6 +109,7 @@ export default function ProductsPage({ onOpenSidebar }: HeaderProps) {
                   <th className="px-4 py-3 text-left">Начальная цена</th>
                   <th className="px-4 py-3 text-left">Статус</th>
                   <th className="px-4 py-3 text-left">Действия</th>
+                  <th className="px-4 py-3 text-left">Телефон продавца</th>
                 </tr>
               </thead>
               <tbody>
