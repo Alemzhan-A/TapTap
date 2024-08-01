@@ -1,17 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { username, olxEmail, password } = req.body;
-    if (!username || !olxEmail || !password) {
+    const { username, name, password } = req.body;
+
+    if (!username || !name || !password) {
       return res.status(400).json({ success: false, message: 'Все поля обязательны' });
     }
+
     try {
       const response = await axios.post(`https://web-production-8d99.up.railway.app/api/auth/register`, {
         username,
-        olxEmail,
+        name,
         password
       });
       res.status(response.status).json(response.data);
