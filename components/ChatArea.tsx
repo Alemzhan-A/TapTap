@@ -154,6 +154,9 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
             initial_price: numericPrice, 
             current_price: numericPrice, 
             conversation_link: "Ссылка на диалог",
+            seller_phone: "",
+            chat_history: []
+            
           }),
         });
         const data = await response.json();

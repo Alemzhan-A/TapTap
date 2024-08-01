@@ -100,6 +100,8 @@ export default function LinkInput({ onOpenSidebar }: HeaderProps) {
             initial_price: 0,
             current_price: 0,
             conversation_link: "Ссылка на диалог",
+            seller_phone: "",
+            chat_history: [],
           }),
         });
         const data = await response.json();
