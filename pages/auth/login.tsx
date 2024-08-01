@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 
 export default function Login() {
-  const [olxEmail, setOlxEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
@@ -11,7 +11,7 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/login', { olxEmail, password });
+      const response = await axios.post('/api/login', { username, password });
       localStorage.setItem('token', response.data.token);
       window.location.href = 'https://tap-tap-jade.vercel.app/chat';
     } catch (error) {
@@ -31,18 +31,18 @@ export default function Login() {
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="olx-email" className="sr-only">
-                OLX Email
+              <label htmlFor="username" className="sr-only">
+                Username
               </label>
               <input
-                id="olx-email"
-                name="olx-email"
-                type="email"
+                id="username"
+                name="username"
+                type="text"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Почта OLX"
-                value={olxEmail}
-                onChange={(e) => setOlxEmail(e.target.value)}
+                placeholder="Никнейм"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div>
@@ -55,19 +55,18 @@ export default function Login() {
                 type="password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Пароль от OLX"
+                placeholder="Пароль"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
-
           <div>
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Sign in
+              Войти
             </button>
           </div>
         </form>

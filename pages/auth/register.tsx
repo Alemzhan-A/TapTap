@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default function Register() {
   const [username, setUsername] = useState('');
-  const [olxEmail, setOlxEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
@@ -12,7 +12,7 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/register', { username, olxEmail, password });
+      const response = await axios.post('/api/register', { username, name, password });
       localStorage.setItem('token', response.data.token);
       window.location.href = 'https://tap-tap-jade.vercel.app/chat';
     } catch (error) {
@@ -47,18 +47,18 @@ export default function Register() {
               />
             </div>
             <div>
-              <label htmlFor="olx-email" className="sr-only">
-                OLX Email
+              <label htmlFor="name" className="sr-only">
+                Name
               </label>
               <input
-                id="olx-email"
-                name="olx-email"
-                type="email"
+                id="name"
+                name="name"
+                type="text"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Почта от OLX"
-                value={olxEmail}
-                onChange={(e) => setOlxEmail(e.target.value)}
+                placeholder="Имя"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div>
@@ -71,7 +71,7 @@ export default function Register() {
                 type="password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Пароль от OLX"
+                placeholder="Пароль"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -83,14 +83,11 @@ export default function Register() {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Register
+              Зарегистрироваться
             </button>
           </div>
         </form>
         {error && <p className="mt-2 text-center text-sm text-red-600">{error}</p>}
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Примечание: Пожалуйста, введите действительные данные. Мы не получаем никакой выгоды от ваших аккаунтов OLX
-        </p>
       </div>
     </div>
   );
