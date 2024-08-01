@@ -362,7 +362,7 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
                                 className="bg-[#4A4AFA] text-white px-4 py-2 w-full rounded hover:bg-opacity-90 transition-colors duration-200"
                                 onClick={() => handleOpenModal(product.title, product.price, product.link)}
                               >
-                                {isAuthenticated ? 'Сторговаться' : 'Войдите, чтобы сторговаться'}
+                                {isAuthenticated ? 'Поручить ИИ снизить цену' : 'Войдите, чтобы воспользоваться ИИ'}
                               </button>
                             </div>
                           </div>
