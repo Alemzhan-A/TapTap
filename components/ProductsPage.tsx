@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Link from 'next/link';
 import HeaderChat from './HeaderChat';
 
 type HeaderProps = {
@@ -134,14 +135,12 @@ export default function ProductsPage({ onOpenSidebar }: HeaderProps) {
                       )}
                     </td>
                     <td className="px-4 py-3">
-                      <a
-                        href={product.conversation_link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-indigo-600 hover:text-indigo-900 mr-2 transition-colors duration-150"
-                      >
-                        Чат
-                      </a>
+                    <Link
+                      href={`/conversation?productId=${product._id}`}
+                      className="text-indigo-600 hover:text-indigo-900 mr-2 transition-colors duration-150"
+                    >
+                      Чат
+                    </Link>
                       <a
                         href={product.link}
                         target="_blank"
