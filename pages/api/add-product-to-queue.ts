@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { productLink, product_name, initial_price, current_price, conversation_link,seller_phone,
+    const { productLink, product_name, initial_price, current_price, conversation_link, seller_phone,
       chat_history } = req.body;
     const token = req.headers.authorization;
 
@@ -21,7 +21,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         { headers: { Authorization: token } }
       );
-
+      console.log('Данные, отправляемые на сервер Railway:', {
+        productLink,
+        product_name,
+        initial_price,
+        current_price,
+        conversation_link,
+        seller_phone,
+        chat_history,
+      });
       res.status(response.status).json(response.data);
     } catch (error) {
       console.error('Error calling backend server:', error);

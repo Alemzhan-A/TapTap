@@ -14,6 +14,7 @@ type Product = {
   conversation_link: string;
   link: string;
   isOver: boolean;
+  seller_phone: string; // Добавлен новый атрибут
 };
 
 const MeshGradientBackground = () => {
@@ -149,6 +150,7 @@ export default function ProductsPage({ onOpenSidebar }: HeaderProps) {
                         OLX
                       </a>
                     </td>
+                    <td className="px-4 py-3">{product.seller_phone}</td>
                   </tr>
                 ))}
               </tbody>
