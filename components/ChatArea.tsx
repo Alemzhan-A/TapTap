@@ -251,7 +251,7 @@ export default function ChatArea({ onOpenSidebar }: ChatAreaProps) {
       <HeaderChat onOpenSidebar={onOpenSidebar} />
       <div className="flex-grow flex flex-col items-center justify-start px-4 py-8 z-10 relative">
         <div className="w-full max-w-4xl">
-          <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#8B5CF6]">Что хотите купить?</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#8B5CF6]">Найдите товар для ИИ-переговоров</h1>
           <form onSubmit={handleSearch} className="mb-8">
           <div className="flex items-center border-2 border-[#8B5CF6] rounded-full overflow-hidden bg-white shadow-lg">
               <input
