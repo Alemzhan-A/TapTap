@@ -88,7 +88,7 @@ const ConversationHistory: React.FC = () => {
             <div className={`inline-block p-3 rounded-lg ${
               message.sender === 'ИИ' ? 'bg-blue-100 text-blue-800' : 'bg-white text-gray-800'
             } shadow-md`}>
-              <p className="font-bold mb-1">{message.sender === 'Покупатель' ? 'ИИ' : message.sender}</p>
+              <p className="font-bold mb-1">{message.sender}</p>
               <p>{message.message}</p>
             </div>
           </div>
