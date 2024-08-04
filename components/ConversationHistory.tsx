@@ -84,11 +84,11 @@ const ConversationHistory: React.FC = () => {
       <MeshGradientBackground />
       <div className="relative z-10 flex-1 overflow-y-auto p-4">
         {messages.map((message, index) => (
-          <div key={index} className={`mb-4 ${message.sender === 'ИИ' ? 'text-right' : 'text-left'}`}>
+          <div key={index} className={`mb-4 ${message.sender === 'Покупатель' ? 'text-right' : 'text-left'}`}>
             <div className={`inline-block p-3 rounded-lg ${
-              message.sender === 'ИИ' ? 'bg-blue-100 text-blue-800' : 'bg-white text-gray-800'
+              message.sender === 'Покупатель' ? 'bg-blue-100 text-blue-800' : 'bg-white text-gray-800'
             } shadow-md`}>
-              <p className="font-bold mb-1">{message.sender}</p>
+              <p className="font-bold mb-1">{message.sender === 'Покупатель' ? 'ИИ' : 'Продавец'}</p>
               <p>{message.message}</p>
             </div>
           </div>
